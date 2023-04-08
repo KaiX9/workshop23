@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body data-th-object="${order_details}">
+    <div data-th-if="${display}">
+    <h2>Order Details</h2>
+    <p>Order ID:</p>
+    <p data-th-text="${orderDetails.getOrder_id()}"></p>
+    <br>
+    <p>Order Date:</p>
+    <p data-th-text="*{orderDate}"></p>
+    <br>
+    <p>Customer ID:</p>
+    <p data-th-text="*{customerId}"></p>
+    <br>
+    <p>Discounted Price:</p>
+    <p data-th-text="*{totalDiscountedPrice}"></p>
+    <br>
+    <p>Cost Price:</p>
+    <p data-th-text="*{totalCostPrice}"></p>
+    <br>
+    </div>
+    <div data-th-if="${error}">
+        <h4>Invalid Order ID!</h4>
+    </div>
+</body>
+</html>

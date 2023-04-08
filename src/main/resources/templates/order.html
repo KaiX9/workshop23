@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body>
+    <h2>Order Details</h2>
+    <form method="POST" data-th-action="@{/display/{order_id}}" data-th-object="${order_details}">
+        <label for="order_id">What is the order ID?</label>
+        <br>
+        <br>
+        <input type="text" name="order_id" id="order_id" size="30"
+            placeholder="Input order ID here" data-th-field="*{order_id}">
+        <br>
+        <br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
