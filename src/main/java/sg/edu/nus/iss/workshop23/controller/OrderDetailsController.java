@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.workshop23.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.iss.workshop23.model.OrderDetails;
 import sg.edu.nus.iss.workshop23.repository.OrderDetailsRepository;
@@ -46,6 +49,31 @@ public class OrderDetailsController {
         m.addAttribute("error", false);
         m.addAttribute("order_details", od);
         return "orderdetails";
+    }
+
+    @GetMapping(path="/name")
+    public String getOrderDetailsByName(Model m, @ModelAttribute OrderDetails od) {
+        
+        m.addAttribute("od", od);
+        return "name";
+    }
+
+    @GetMapping(path="/result")
+    public String getOrderDetailsByNameResult(Model m, @ModelAttribute OrderDetails od
+        , @RequestParam String customerName) {
+        
+        List<OrderDetails> orderDetails = odRepo.getOrderDetailsWithName(customerName);
+        System.out.println(orderDetails);
+        if (orderDetails == null) {
+            m.addAttribute("display", false);
+            m.addAttribute("error", true);
+        } else {
+        m.addAttribute("display", true);
+        m.addAttribute("error", false);
+        m.addAttribute("order_details", orderDetails);
+        }
+        
+        return "name";
     }
 
 }

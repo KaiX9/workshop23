@@ -34,4 +34,21 @@ public class OrderDetailsRepository {
         
         return orderDetailsList.get(0);
     }
+
+    public List<OrderDetails> getOrderDetailsWithName(String name) {
+        
+        String correctName = "%" + name + "%";
+        List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(ORDER_DETAILS_BY_NAME, correctName);
+
+        if (!rs.next()) {
+            orderDetailsList = null;
+        } else {
+            do {
+            System.out.println(rs.getString("customer_name"));
+            orderDetailsList.add(OrderDetails.createByName(rs));
+            } while (rs.next());
+        }
+        return orderDetailsList;
+    }
 }
