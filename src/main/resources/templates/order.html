@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Order Details</h2>
-    <form method="POST" data-th-action="@{/display/{order_id}}" data-th-object="${order_details}">
+    <form method="GET" data-th-action="@{/display}" data-th-object="${order_details}">
         <label for="order_id">What is the order ID?</label>
         <br>
         <br>

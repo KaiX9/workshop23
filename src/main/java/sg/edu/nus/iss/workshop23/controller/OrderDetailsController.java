@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,8 +30,28 @@ public class OrderDetailsController {
     }
 
     // Post method via path variable to display order details in html form
-    @PostMapping(path="/display/{order_id}")
+    @GetMapping(path="/display")
     public String displayOrderDetails(Model m, @ModelAttribute OrderDetails od
+        , @RequestParam String order_id) {
+
+        // OrderDetails orderDetails = odRepo.getOrderDetailsWithDiscount(od.getOrder_id());
+        // System.out.println(orderDetails);
+        // od = orderDetails;
+        
+        // if (orderDetails == null) {
+        //     m.addAttribute("display", false);
+        //     m.addAttribute("error", true);
+        //     return "redirect:/display/" + order_id;
+        // }
+
+        m.addAttribute("display", true);
+        m.addAttribute("error", false);
+        m.addAttribute("order_details", od);
+        return "redirect:/display/" + order_id;
+    }
+
+    @GetMapping(path="/display/{order_id}")
+    public String getDisplayOrderDetails(Model m, @ModelAttribute OrderDetails od
         , @PathVariable String order_id) {
 
         OrderDetails orderDetails = odRepo.getOrderDetailsWithDiscount(od.getOrder_id());
@@ -50,6 +69,7 @@ public class OrderDetailsController {
         m.addAttribute("order_details", od);
         return "orderdetails";
     }
+
 
     @GetMapping(path="/name")
     public String getOrderDetailsByName(Model m, @ModelAttribute OrderDetails od) {
